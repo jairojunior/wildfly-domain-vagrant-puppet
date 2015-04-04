@@ -10,5 +10,5 @@ Using:
 
 * https://github.com/jairojunior/biemond-wildfly (forked from https://github.com/biemond/biemond-wildfly)
 * https://github.com/jairojunior/puppet-modcluster
-* https://github.com/jairojunior/puppet-modcluster
+* https://github.com/jairojunior/wildfly-cli-wrapper
 
