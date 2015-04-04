@@ -12,4 +12,3 @@ Using:
 * https://github.com/jairojunior/puppet-modcluster
 * https://github.com/jairojunior/puppet-modcluster
 
-*You might need to adjust networking settings*
