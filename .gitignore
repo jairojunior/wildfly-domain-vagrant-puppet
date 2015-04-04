@@ -1,0 +1,6 @@
+.idea
+puppet/modules
+.vagrant
+Puppetfile.lock
+.librarian
+.tmp
