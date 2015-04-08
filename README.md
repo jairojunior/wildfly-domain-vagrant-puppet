@@ -1,5 +1,21 @@
 ## Wildfly HA Vagrant Puppet
 
+## Requirements
+
+Working vagrant and virtualbox.
+
+Then:
+
+`vagrant plugin install vagrant-librarian-puppet`
+
+`mkdir puppet/modules`
+
+`vagrant up`
+
+And you should have an environemnt as described in the next section.
+
+## Environment
+
 Multi-machine environment with:
 
 * Load Balancer (centos-6-balancer-vagrant) (Apache + modcluster)
