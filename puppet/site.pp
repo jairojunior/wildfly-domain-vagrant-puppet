@@ -11,7 +11,7 @@ node 'centos-6-balancer-vagrant' {
   class { 'apache': }
 
   class { 'modcluster':
-    download_url            => 'http://downloads.jboss.org/mod_cluster//1.2.6.Final/linux-x86_64/mod_cluster-1.2.6.Final-linux2-x64-so.tar.gz',
+    download_url            => 'http://downloads.jboss.org/mod_cluster/1.2.6.Final/linux-x86_64/mod_cluster-1.2.6.Final-linux2-x64-so.tar.gz',
     listen_ip_address       => '*',
     allowed_network         => '172.28.128',
     balancer_name           => 'mybalancer',
@@ -24,11 +24,7 @@ node 'centos-6-balancer-vagrant' {
 
 }
 
-node 'centos-6-node1-vagrant' {
-  include app
-}
-
-node 'centos-6-node2-vagrant' {
+node /^centos-6-node\d+-vagrant$/ {
   include app
 }
 

@@ -3,8 +3,8 @@ mod 'nexus',
   :ref => 'master'
 
 mod 'wildfly',
-  :git => 'git@github.com:jairojunior/biemond-wildfly.git',
-  :ref => 'master'
+  :git => 'git@github.com:biemond/biemond-wildfly.git',
+  :ref => 'v0.2.3'
 
 mod 'modcluster',
   :git => 'git@github.com:jairojunior/puppet-modcluster.git',

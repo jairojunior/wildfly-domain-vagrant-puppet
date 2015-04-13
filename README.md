@@ -28,3 +28,6 @@ Using:
 * https://github.com/jairojunior/puppet-modcluster
 * https://github.com/jairojunior/wildfly-cli-wrapper
 
+## mod_cluster_manager
+
+Access mod_cluster_manager at http://172.28.128.3:6666/mod_cluster_manager
