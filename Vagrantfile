@@ -1,6 +1,15 @@
 Vagrant.configure(2) do |config|
 
-  config.librarian_puppet.puppetfile_dir = "puppet"
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :machine
+
+    config.cache.enable :yum
+    config.cache.enable :generic, { "wget" => { cache_dir: "/var/cache/wget" }, }
+  end
+
+  config.r10k.puppetfile_path = 'Puppetfile'
+  config.r10k.puppet_dir = 'environments'
+  config.r10k.module_path = 'environments/production/modules'
 
   config.vm.define "centos-balancer" do |v|
     v.vm.box = "puppetlabs/centos-6.6-64-puppet"
@@ -13,11 +22,10 @@ Vagrant.configure(2) do |config|
 
     v.vm.network "private_network", ip: "172.28.128.3"
 
-    v.vm.provision :puppet, :options => ["--pluginsync"] do |puppet|
-      puppet.module_path = "puppet/modules"
-      puppet.manifests_path = "puppet"
-      puppet.manifest_file = "site.pp"
-      puppet.options = "--environment dev --verbose --debug --trace"
+    v.vm.provision :puppet do |puppet|
+      puppet.environment_path = "environments"
+      puppet.environment = "production"
+      # puppet.options = "--verbose --debug --trace --profile"
     end
   end
 
@@ -32,11 +40,10 @@ Vagrant.configure(2) do |config|
       virtualbox.memory = 1024
     end
 
-    v.vm.provision :puppet, :options => ["--pluginsync"] do |puppet|
-      puppet.module_path = "puppet/modules"
-      puppet.manifests_path = "puppet"
-      puppet.manifest_file = "site.pp"
-      puppet.options = "--environment dev --verbose --debug --trace"
+    v.vm.provision :puppet do |puppet|
+      puppet.environment_path = "environments"
+      puppet.environment = "production"
+      # puppet.options = "--verbose --debug --trace --profile"
     end
   end
 
@@ -49,11 +56,10 @@ Vagrant.configure(2) do |config|
       virtualbox.memory = 1024
     end
 
-    v.vm.provision :puppet, :options => ["--pluginsync"] do |puppet|
-      puppet.module_path = "puppet/modules"
-      puppet.manifests_path = "puppet"
-      puppet.manifest_file = "site.pp"
-      puppet.options = "--environment dev --verbose --debug --trace"
+    v.vm.provision :puppet do |puppet|
+      puppet.environment_path = "environments"
+      puppet.environment = "production"
+      # puppet.options = "--verbose --debug --trace --profile"
     end
   end
 

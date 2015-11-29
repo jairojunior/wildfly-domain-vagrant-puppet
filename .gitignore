@@ -1,6 +1,4 @@
 .idea
-puppet/modules
 .vagrant
-Puppetfile.lock
-.librarian
+.DS_Store
 .tmp

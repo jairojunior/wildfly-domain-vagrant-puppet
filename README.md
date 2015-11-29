@@ -2,31 +2,30 @@
 
 ## Requirements
 
-Working vagrant and virtualbox.
+Working vagrant and Virtualbox.
 
 Then:
 
-`vagrant plugin install vagrant-librarian-puppet`
+`vagrant plugin install vagrant-r10k`
 
-`mkdir puppet/modules`
+`mkdir environments/production/modules`
 
 `vagrant up`
 
-And you should have an environemnt as described in the next section.
+And you'll an environemnt as described in the next section.
 
 ## Environment
 
 Multi-machine environment with:
 
 * Load Balancer (centos-6-balancer-vagrant) (Apache + modcluster)
-* Node 1 (centos-6-node1-vagrant) (Wildfly 8.2.0 standalone-ha)
-* Node 2 (centos-6-node2-vagrant) (Wildfly 8.2.0 standalone-ha)
+* Node 1 (centos-6-node1-vagrant) (Wildfly 8.2.1 Domain Controller)
+* Node 2 (centos-6-node2-vagrant) (Wildfly 8.2.0 Slave)
 
 Using:
 
-* https://github.com/jairojunior/biemond-wildfly (forked from https://github.com/biemond/biemond-wildfly)
+* https://github.com/biemond/biemond-wildfly
 * https://github.com/jairojunior/puppet-modcluster
-* https://github.com/jairojunior/wildfly-cli-wrapper
 
 ## mod_cluster_manager
 
