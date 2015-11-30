@@ -12,15 +12,13 @@ Then:
 
 `vagrant up`
 
-And you'll an environemnt as described in the next section.
-
 ## Environment
 
 Multi-machine environment with:
 
 * Load Balancer (centos-6-balancer-vagrant) (Apache + modcluster)
 * Node 1 (centos-6-node1-vagrant) (Wildfly 8.2.1 Domain Controller)
-* Node 2 (centos-6-node2-vagrant) (Wildfly 8.2.0 Slave)
+* Node 2 (centos-6-node2-vagrant) (Wildfly 8.2.1 Slave)
 
 Using:
 
