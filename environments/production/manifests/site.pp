@@ -89,8 +89,7 @@ class master {
     host_config => 'host-master.xml'
   }
 
-  wildfly::config::mgmt_user { 'Slave1 server user':
-    username => 'slave1',
+  wildfly::config::mgmt_user { 'slave1':
     password => 'wildfly',
   }
 

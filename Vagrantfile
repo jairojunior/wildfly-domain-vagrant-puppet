@@ -1,7 +1,7 @@
 Vagrant.configure(2) do |config|
 
   if Vagrant.has_plugin?("vagrant-cachier")
-    config.cache.scope = :machine
+    config.cache.scope = :box
 
     config.cache.enable :yum
     config.cache.enable :generic, { "wget" => { cache_dir: "/var/cache/wget" }, }
@@ -12,11 +12,11 @@ Vagrant.configure(2) do |config|
   config.r10k.module_path = 'environments/production/modules'
 
   config.vm.define "centos-balancer" do |v|
-    v.vm.box = "puppetlabs/centos-6.6-64-puppet"
-    v.vm.host_name = "centos-6-balancer-vagrant"
+    v.vm.box = "puppetlabs/centos-7.0-64-puppet"
+    v.vm.host_name = "centos-7-balancer-vagrant"
 
     v.vm.provider "virtualbox" do |virtualbox|
-      virtualbox.name = "centos-6-balancer-vagrant"
+      virtualbox.name = "centos-7-balancer-vagrant"
       virtualbox.memory = 1024
     end
 
@@ -32,11 +32,11 @@ Vagrant.configure(2) do |config|
   config.vm.network "private_network", type: "dhcp"
 
   config.vm.define "centos-node1" do |v|
-    v.vm.box = "puppetlabs/centos-6.6-64-puppet"
-    v.vm.host_name = "centos-6-node1-vagrant"
+    v.vm.box = "puppetlabs/centos-7.0-64-puppet"
+    v.vm.host_name = "centos-7-node1-vagrant"
 
     v.vm.provider "virtualbox" do |virtualbox|
-      virtualbox.name = "centos-6-node1-vagrant"
+      virtualbox.name = "centos-7-node1-vagrant"
       virtualbox.memory = 1024
     end
 
@@ -48,11 +48,11 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.define "centos-node2" do |v|
-    v.vm.box = "puppetlabs/centos-6.6-64-puppet"
-    v.vm.host_name = "centos-6-node2-vagrant"
+    v.vm.box = "puppetlabs/centos-7.0-64-puppet"
+    v.vm.host_name = "centos-7-node2-vagrant"
 
     v.vm.provider "virtualbox" do |virtualbox|
-      virtualbox.name = "centos-6-node2-vagrant"
+      virtualbox.name = "centos-7-node2-vagrant"
       virtualbox.memory = 1024
     end
 
