@@ -1,4 +1,4 @@
-node 'centos-6-balancer-vagrant' {
+node 'centos-7-balancer-vagrant' {
 
   firewall { '100 allow modcluster':
     chain   => 'INPUT',
@@ -24,7 +24,7 @@ node 'centos-6-balancer-vagrant' {
 
 }
 
-node 'centos-6-node1-vagrant' {
+node 'centos-7-node1-vagrant' {
   include java
   include firewall_appserver
   include master
@@ -34,7 +34,7 @@ node 'centos-6-node1-vagrant' {
 
 }
 
-node 'centos-6-node2-vagrant' {
+node 'centos-7-node2-vagrant' {
   include java
   include firewall_appserver
   include slave
@@ -91,6 +91,11 @@ class master {
 
   wildfly::config::mgmt_user { 'slave1':
     password => 'wildfly',
+  }
+
+  wildfly::deployment { 'hawtio.war':
+   source       => 'http://central.maven.org/maven2/io/hawt/hawtio-web/1.4.48/hawtio-web-1.4.48.war',
+   server_group => 'main-server-group',
   }
 
 
