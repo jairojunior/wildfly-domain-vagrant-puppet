@@ -1,25 +1,17 @@
 moduledir 'environments/production/modules'
 
-mod 'stdlib',
-  :git => 'git@github.com:puppetlabs/puppetlabs-stdlib.git',
-  :ref => '4.9.0'
+mod 'puppet/archive', :latest
 
-mod 'apache',
-  :git => 'git@github.com:jairojunior/puppetlabs-apache.git',
-  :ref => 'master'
+mod 'puppetlabs/concat', '1.2.4'
 
-mod 'concat',
-  :git => 'git@github.com:puppetlabs/puppetlabs-concat.git',
-  :ref => '1.2.4'
+mod 'crayfishx/firewalld', :latest
 
-mod 'firewalld',
-  :git => 'git@github.com:crayfishx/puppet-firewalld.git',
-  :ref => 'master'
+mod 'puppetlabs/java', :latest
 
-mod 'java',
-  :git => 'git@github.com:puppetlabs/puppetlabs-java.git',
-  :ref => 'master'
+mod 'puppetlabs/stdlib', '4.9.0'
 
 mod 'wildfly',
-  :git => 'git@github.com:biemond/biemond-wildfly.git',
-  :ref => 'master'
+  :git => 'git@github.com:biemond/biemond-wildfly.git'
+
+mod 'apache',
+  :git => 'git@github.com:jairojunior/puppetlabs-apache.git'
