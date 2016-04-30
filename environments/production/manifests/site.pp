@@ -93,7 +93,7 @@ class firewalld_appserver {
         },
         {
             'port'     => '8080',
-            'protocol' => 'udp',
+            'protocol' => 'tcp',
         },
       ],
       destination => {
@@ -136,6 +136,13 @@ class master {
     proxy_url            => '/',
     proxy_list           => '172.28.128.10:6666',
     target_profile       => 'full-ha',
+  }
+
+  firewalld_port { 'Open port 8159 in the public zone':
+    ensure   => present,
+    zone     => 'public',
+    port     => 8159,
+    protocol => 'tcp',
   }
 
 }
