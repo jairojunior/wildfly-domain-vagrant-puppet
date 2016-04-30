@@ -10,9 +10,12 @@ Then:
 
 OR
 
-gem install r10k --no-ri --no-rdoc
-r10k puppetfile install
-vagrant up
+`gem install r10k --no-ri --no-rdoc`
+
+`r10k puppetfile install`
+
+`vagrant up`
+
 
 ## Environment
 
