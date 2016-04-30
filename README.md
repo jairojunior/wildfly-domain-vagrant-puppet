@@ -1,30 +1,49 @@
-## Wildfly HA Vagrant Puppet
+## Wildfly Domain HA Vagrant Puppet
 
 ## Requirements
 
-Working vagrant and Virtualbox.
+Working vagrant and Virtualbox. And Ruby (checkout RVM: https://rvm.io/)
 
 Then:
 
-`vagrant plugin install vagrant-r10k`
+`./setup.sh`
 
-`mkdir environments/production/modules`
+OR
 
-`vagrant up`
+gem install r10k --no-ri --no-rdoc
+r10k puppetfile install
+vagrant up
 
 ## Environment
 
 Multi-machine environment with:
 
-* Load Balancer (centos-6-balancer-vagrant) (Apache + modcluster)
-* Node 1 (centos-6-node1-vagrant) (Wildfly 8.2.1 Domain Controller)
-* Node 2 (centos-6-node2-vagrant) (Wildfly 8.2.1 Slave)
+* load-balancer (centos-7-httpd-modcluster) (Apache + mod_cluster)
+* domain-controller (centos-7-domain-controller) (Wildfly 9.0.2 Domain Controller)
+* slave1 (centos-7-slave) (Wildfly 9.0.2 Slave)
+
+Check: `environments/production/manifests/site.pp`
 
 Using:
 
-* https://github.com/biemond/biemond-wildfly
-* https://github.com/jairojunior/puppet-modcluster
+* biemond-wildfly
+* puppetlabs-apache
+* puppetlabs-stdlib
+* puppetlabs-concat
+* puppetlabs-java
+* crayfishx/firewalld
+
+## Console
+
+http://172.28.128.20:9990
+
+user: wildfly
+password: wildfly
 
 ## mod_cluster_manager
 
-Access mod_cluster_manager at http://172.28.128.3:6666/mod_cluster_manager
+http://172.28.128.10:6666/mod_cluster_manager
+
+## Hawt.io
+
+http://172.28.128.30:8080/hawtio
