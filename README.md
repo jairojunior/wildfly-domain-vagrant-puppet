@@ -1,4 +1,4 @@
-## Wildfly Domain HA Vagrant Puppet
+## Wildfly Domain Vagrant Puppet
 
 ## Requirements
 
@@ -38,6 +38,7 @@ Using:
 http://172.28.128.20:9990
 
 user: wildfly
+
 password: wildfly
 
 ## mod_cluster_manager
