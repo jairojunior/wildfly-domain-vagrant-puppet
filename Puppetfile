@@ -1,18 +1,20 @@
-mod 'firewall',
-  :git => 'git@github.com:puppetlabs/puppetlabs-firewall',
-  :ref => '1.7.1'
+moduledir 'environments/production/modules'
 
 mod 'stdlib',
   :git => 'git@github.com:puppetlabs/puppetlabs-stdlib.git',
   :ref => '4.9.0'
 
 mod 'apache',
-  :git => 'git@github.com:puppetlabs/puppetlabs-apache.git',
-  :ref => '1.5.0'
+  :git => 'git@github.com:jairojunior/puppetlabs-apache.git',
+  :ref => 'master'
 
 mod 'concat',
   :git => 'git@github.com:puppetlabs/puppetlabs-concat.git',
   :ref => '1.2.4'
+
+mod 'firewalld',
+  :git => 'git@github.com:crayfishx/puppet-firewalld.git',
+  :ref => 'master'
 
 mod 'java',
   :git => 'git@github.com:puppetlabs/puppetlabs-java.git',
@@ -21,11 +23,3 @@ mod 'java',
 mod 'wildfly',
   :git => 'git@github.com:biemond/biemond-wildfly.git',
   :ref => 'master'
-
-mod 'modcluster',
-  :git => 'git@github.com:jairojunior/puppet-modcluster.git',
-  :ref => 'master'
-
-mod 'wget',
-  :git => 'git@github.com:maestrodev/puppet-wget.git',
-  :ref => 'v1.4.4'

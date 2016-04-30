@@ -1,32 +1,13 @@
-node 'centos-7-balancer-vagrant' {
+node 'centos-7-load-balancer' {
 
-  firewall { '100 allow modcluster':
-    chain   => 'INPUT',
-    state   => ['NEW'],
-    dport   => '6666',
-    proto   => 'tcp',
-    action  => accept
-  }
-
-  class { 'apache': }
-
-  class { 'modcluster':
-    download_url            => 'http://downloads.jboss.org/mod_cluster/1.2.6.Final/linux-x86_64/mod_cluster-1.2.6.Final-linux2-x64-so.tar.gz',
-    listen_ip_address       => '*',
-    allowed_network         => '172.28.128',
-    balancer_name           => 'mybalancer',
-    manager_allowed_network => '172.28.128',
-  }
-
-  Class['apache'] ->
-    Class['modcluster'] ~>
-      Service['httpd']
+  #  Download modcluster http://downloads.jboss.org/mod_cluster//1.3.1.Final/linux-x86_64/mod_cluster-1.3.1.Final-linux2-x64.tar.gz
+  # include apache::mod::cluster
 
 }
 
-node 'centos-7-node1-vagrant' {
+node 'centos-7-domain-controller' {
   include java
-  include firewall_appserver
+  include firewalld_appserver
   include master
 
   Class['java'] ->
@@ -34,9 +15,9 @@ node 'centos-7-node1-vagrant' {
 
 }
 
-node 'centos-7-node2-vagrant' {
+node 'centos-7-slave1' {
   include java
-  include firewall_appserver
+  include firewalld_appserver
   include slave
 
   Class['java'] ->
@@ -44,49 +25,19 @@ node 'centos-7-node2-vagrant' {
 
 }
 
-class firewall_appserver {
-
-  firewall { '100 allow outgoing modcluster':
-    chain    => 'OUTPUT',
-    state    => ['NEW'],
-    dport    => '6666',
-    proto    => 'tcp',
-    action   => accept,
-  }
-
-
-  firewall { '200 allow web':
-    chain   => 'INPUT',
-    state   => ['NEW'],
-    dport   => '8080',
-    proto   => 'tcp',
-    action  => accept,
-  }
-
-  firewall { '300 allow management':
-    chain   => 'INPUT',
-    state   => ['NEW'],
-    dport   => '9999',
-    proto   => 'tcp',
-    action  => accept,
-  }
-
-  firewall { '400 allow management':
-    chain   => 'INPUT',
-    state   => ['NEW'],
-    dport   => '9990',
-    proto   => 'tcp',
-    action  => accept,
-  }
+class firewalld_appserver {
 
 }
 
 class master {
 
   class { 'wildfly':
-    java_home   => '/etc/alternatives/java_sdk',
-    mode        => 'domain',
-    host_config => 'host-master.xml'
+    version                => '8.2.1',
+    install_source         => 'http://download.jboss.org/wildfly/8.2.1.Final/wildfly-8.2.1.Final.tar.gz',
+    java_home              => '/etc/alternatives/java_sdk',
+    mode                   => 'domain',
+    domain_controller_only => true,
+    host_config            => 'host-master.xml'
   }
 
   wildfly::config::mgmt_user { 'slave1':
@@ -94,8 +45,8 @@ class master {
   }
 
   wildfly::deployment { 'hawtio.war':
-   source       => 'http://central.maven.org/maven2/io/hawt/hawtio-web/1.4.48/hawtio-web-1.4.48.war',
-   server_group => 'main-server-group',
+    source       => 'http://central.maven.org/maven2/io/hawt/hawtio-web/1.4.64/hawtio-web-1.4.64.war',
+    server_group => 'main-server-group',
   }
 
 
@@ -104,13 +55,15 @@ class master {
 class slave {
 
   class { 'wildfly':
-    java_home   => '/etc/alternatives/java_sdk',
-    mode        => 'domain',
-    host_config => 'host-slave.xml',
-    domain_slave => {
-      host_name => 'slave1',
-      secret    => 'd2lsZGZseQ==',
-      domain_master_address => '172.28.128.3',
+    version        => '8.2.1',
+    install_source => 'http://download.jboss.org/wildfly/8.2.1.Final/wildfly-8.2.1.Final.tar.gz',
+    java_home      => '/etc/alternatives/java_sdk',
+    mode           => 'domain',
+    host_config    => 'host-slave.xml',
+    domain_slave   => {
+      host_name             => 'slave1',
+      secret                => 'd2lsZGZseQ==',
+      domain_master_address => '172.28.128.20',
     }
   }
 
