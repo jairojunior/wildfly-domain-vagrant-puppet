@@ -6,26 +6,59 @@ node 'centos-7-load-balancer' {
 }
 
 node 'centos-7-domain-controller' {
+
   include java
-  include firewalld_appserver
   include master
+  include firewalld_appserver
 
   Class['java'] ->
-    Class['master']
+    Class['master'] ->
+      Class['firewalld_appserver']
 
 }
 
 node 'centos-7-slave1' {
+
   include java
-  include firewalld_appserver
   include slave
+  include firewalld_appserver
 
   Class['java'] ->
-    Class['slave']
+    Class['slave'] ->
+      Class['firewalld_appserver']
 
 }
 
 class firewalld_appserver {
+
+  firewalld::custom_service { 'Wildfly Application Server':
+      short       => 'wildfly',
+      description => 'Wildfly is an Application Server for Java Applications',
+      port        => [
+        {
+            'port'     => '9990',
+            'protocol' => 'tcp',
+        },
+        {
+            'port'     => '9999',
+            'protocol' => 'tcp',
+        },
+        {
+            'port'     => '8080',
+            'protocol' => 'udp',
+        },
+      ],
+      destination => {
+        'ipv4' => '172.28.128.0/24',
+      }
+  }
+  ->
+  firewalld_service { 'Allow Wildfly from external zone':
+    ensure  => 'present',
+    service => 'wildfly',
+    zone    => 'public',
+  }
+
 
 }
 
