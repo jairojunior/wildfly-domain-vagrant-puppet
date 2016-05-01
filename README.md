@@ -1,4 +1,4 @@
-## Wildfly Domain Vagrant Puppet
+## Wildfly 8.2.1 Domain Vagrant Puppet
 
 ## Requirements
 
@@ -22,8 +22,8 @@ OR
 Multi-machine environment with:
 
 * load-balancer (centos-7-httpd-modcluster) (Apache + mod_cluster)
-* domain-controller (centos-7-domain-controller) (Wildfly 9.0.2 Domain Controller)
-* slave1 (centos-7-slave) (Wildfly 9.0.2 Slave)
+* domain-controller (centos-7-domain-controller) (Wildfly 8.2.1 Domain Controller)
+* slave1 (centos-7-slave) (Wildfly 8.2.1 Slave)
 
 Check: `environments/production/manifests/site.pp`
 
