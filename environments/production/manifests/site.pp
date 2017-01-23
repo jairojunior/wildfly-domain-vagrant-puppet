@@ -1,4 +1,4 @@
-node 'centos-7-load-balancer' {
+node 'load-balancer' {
 
   $modules_dir = '/etc/httpd/modules'
 
@@ -53,7 +53,7 @@ node 'centos-7-load-balancer' {
 
 }
 
-node 'centos-7-domain-controller' {
+node 'domain-controller' {
 
   include java
   include master
@@ -65,7 +65,7 @@ node 'centos-7-domain-controller' {
 
 }
 
-node 'centos-7-slave1' {
+node 'slave1' {
 
   include java
   include slave
@@ -113,12 +113,12 @@ class firewalld_appserver {
 class master {
 
   class { 'wildfly':
-    version                => '8.2.1',
-    install_source         => 'http://download.jboss.org/wildfly/8.2.1.Final/wildfly-8.2.1.Final.tar.gz',
-    java_home              => '/etc/alternatives/java_sdk',
-    mode                   => 'domain',
-    domain_controller_only => true,
-    host_config            => 'host-master.xml'
+    java_home   => '/etc/alternatives/java_sdk',
+    mode        => 'domain',
+    host_config => 'host-master.xml',
+    properties  => {
+      'jboss.bind.address.management' => '172.28.128.20',
+    },
   }
 
   wildfly::config::mgmt_user { 'slave1':
@@ -126,7 +126,7 @@ class master {
   }
 
   wildfly::deployment { 'hawtio.war':
-    source       => 'http://central.maven.org/maven2/io/hawt/hawtio-web/1.4.64/hawtio-web-1.4.64.war',
+    source       => 'https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-default-offline/1.4.68/hawtio-default-offline-1.4.68.war',
     server_group => 'main-server-group',
   }
 
@@ -150,16 +150,13 @@ class master {
 class slave {
 
   class { 'wildfly':
-    version        => '8.2.1',
-    install_source => 'http://download.jboss.org/wildfly/8.2.1.Final/wildfly-8.2.1.Final.tar.gz',
-    java_home      => '/etc/alternatives/java_sdk',
-    mode           => 'domain',
-    host_config    => 'host-slave.xml',
-    domain_slave   => {
-      host_name             => 'slave1',
-      secret                => 'd2lsZGZseQ==',
-      domain_master_address => '172.28.128.20',
-    }
+    java_home    => '/etc/alternatives/java_sdk',
+    mode         => 'domain',
+    host_config  => 'host-slave.xml',
+    properties   => {
+      'jboss.domain.master.address' => '172.28.128.20',
+    },
+    secret_value => 'd2lsZGZseQ==', #base64('wildfly'),
   }
 
 }

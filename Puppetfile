@@ -8,10 +8,11 @@ mod 'crayfishx/firewalld', :latest
 
 mod 'puppetlabs/java', :latest
 
-mod 'puppetlabs/stdlib', '4.9.0'
+mod 'puppetlabs/stdlib', '4.15.0'
+
+mod 'jethrocarr-initfact', '1.0.1'
+
+mod 'puppetlabs/apache', :latest
 
 mod 'wildfly',
-  :git => 'git@github.com:biemond/biemond-wildfly.git'
-
-mod 'apache',
-  :git => 'git@github.com:jairojunior/puppetlabs-apache.git'
+  :git => 'https://github.com/biemond/biemond-wildfly.git'
