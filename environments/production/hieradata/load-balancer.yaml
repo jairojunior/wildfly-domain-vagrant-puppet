@@ -1,0 +1,4 @@
+profile::httpd::cluster::listen_address: '172.28.128.10'
+profile::httpd::cluster::allowed_network: '172.28.128.'
+profile::httpd::cluster::manager_allowed_network: '172.28.128.'
+profile::httpd::cluster::balancer_name: 'mycluster'

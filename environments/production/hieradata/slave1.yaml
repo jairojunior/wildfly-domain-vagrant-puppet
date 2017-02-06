@@ -1,0 +1,2 @@
+profile::wildfly::host::controller::domain_bind_address: '172.28.128.20'
+profile::wildfly::host::controller::bind_address: '172.28.128.30'
